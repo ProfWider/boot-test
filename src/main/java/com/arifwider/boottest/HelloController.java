@@ -5,6 +5,8 @@ import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Optional;
+
 @RestController
 public class HelloController {
 
@@ -13,8 +15,9 @@ public class HelloController {
 
     @RequestMapping("/")
     public String index() {
-        String testValue = env.getProperty("TEST_VALUE");
-        return "Greetings from Webtech! (" + (testValue == null ? "Environment variable not found" : testValue) + ")";
+        String jdbcUrl = Optional.of(env.getProperty("JDBC_DATABASE_URL")).orElse("Environment variable not found");
+        String jdbcUser = Optional.of(env.getProperty("JDBC_DATABASE_USERNAME")).orElse("Environment variable not found");
+        return "Hello from " + jdbcUrl + "! (" + jdbcUser + ")";
     }
 
 }
