@@ -15,9 +15,8 @@ public class HelloController {
 
     @RequestMapping("/")
     public String index() {
-        String jdbcUrl = Optional.of(env.getProperty("JDBC_DATABASE_URL")).orElse("Environment variable not found");
-        String jdbcUser = Optional.of(env.getProperty("JDBC_DATABASE_USERNAME")).orElse("Environment variable not found");
-        return "Hello from " + jdbcUrl + "! (" + jdbcUser + ")";
+        String testEnvValue = Optional.of(env.getProperty("TEST_VALUE")).orElse("Environment variable not found");
+        return "Hey there, I know environment variables, e.g. " + testEnvValue;
     }
 
     @Autowired
@@ -25,14 +24,7 @@ public class HelloController {
 
     @GetMapping("/products")
     public List<Product> allProducts() {
-
         return productService.findAll();
-    }
-
-    @GetMapping("/products/count")
-    public Long count() {
-
-        return productService.count();
     }
 
     @PostMapping("/products")
@@ -42,9 +34,13 @@ public class HelloController {
 
     @DeleteMapping("/products/{id}")
     public void delete(@PathVariable String id) {
-
         Long productId = Long.parseLong(id);
         productService.deleteById(productId);
+    }
+
+    @GetMapping("/products/count")
+    public Long count() {
+        return productService.count();
     }
 
 }

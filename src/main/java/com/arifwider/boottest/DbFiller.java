@@ -16,7 +16,7 @@ public class DbFiller implements CommandLineRunner {
     @Transactional
     public void run(String... args) {
 
-        productRepository.save(new Product("Aufkleber", 100));
-        productRepository.save(new Product("Untersetzer", 50));
+        //productRepository.save(new Product("Aufkleber", 100));
+        //productRepository.save(new Product("Untersetzer", 50));
     }
 }
