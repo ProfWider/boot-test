@@ -15,7 +15,7 @@ public class HelloController {
 
     @RequestMapping("/")
     public String index() {
-        String testEnvValue = Optional.of(env.getProperty("TEST_VALUE")).orElse("Environment variable not found");
+        String testEnvValue = Optional.of(env.getProperty("JDBC_DATABASE_URL")).orElse("Environment variable not found");
         return "Hey there, I know environment variables, e.g. " + testEnvValue;
     }
 
