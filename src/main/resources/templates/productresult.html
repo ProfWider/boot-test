@@ -1,0 +1,13 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Create Products!</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<h2>You've created a product!</h2>
+<p th:text="'name: ' + ${product.name}"></p>
+<p th:text="'price: ' + ${product.price}"></p>
+<a href="/listproducts">See all products</a>
+</body>
+</html>

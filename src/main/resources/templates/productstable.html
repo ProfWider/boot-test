@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+  <title>Create Products!</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h2>Here are all products</h2>
+<table>
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Price</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:if="${products.isEmpty()}">
+    <td colspan="2">No Products Available</td>
+  </tr>
+  <tr th:each="product : ${products}">
+    <td><span th:text="${product.name}">Name</span></td>
+    <td><span th:text="${product.price}">Price</span></td>
+  </tr>
+  </tbody>
+</table>
+<a href="/createproduct">Create more products</a>
+</body>
+</html>
