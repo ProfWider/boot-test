@@ -13,6 +13,7 @@ public class Product {
     private Long id;
     private String name;
     private int price;
+    private String owner;
 
     public Product() {}
 
@@ -44,6 +45,14 @@ public class Product {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String creator) {
+        this.owner = creator;
     }
 
     @Override

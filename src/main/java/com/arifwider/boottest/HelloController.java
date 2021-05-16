@@ -2,8 +2,8 @@ package com.arifwider.boottest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,7 +15,7 @@ public class HelloController {
     @Autowired
     private Environment env;
 
-    @RequestMapping("/")
+    @RequestMapping("/env")
     public String index() {
         String testEnvValue = Optional.ofNullable(env.getProperty("TEST_VALUE")).orElse("Environment variable not found");
         return "Hey there, I know environment variables, e.g. " + testEnvValue;
@@ -25,8 +25,8 @@ public class HelloController {
     private ProductService productService;
 
     @GetMapping("/products")
-    public List<Product> allProducts() {
-        return productService.findAll();
+    public List<Product> allProducts(@AuthenticationPrincipal OidcUser user) {
+        return productService.findAll(user.getEmail());
     }
 
     @PostMapping("/products")
