@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-public class HelloController {
+public class JsonController {
 
     @Autowired
     private Environment env;
@@ -30,7 +30,8 @@ public class HelloController {
     }
 
     @PostMapping("/products")
-    public Product createProduct(@RequestBody Product product) {
+    public Product createProduct(@AuthenticationPrincipal OidcUser user, @RequestBody Product product) {
+        product.setOwner(user.getEmail());
         return productService.save(product);
     }
 

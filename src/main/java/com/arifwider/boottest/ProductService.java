@@ -12,13 +12,13 @@ public class ProductService {
     @Autowired
     private ProductRepository productRepository;
 
-    public List<Product> findAll(String user) {
+    public List<Product> findAll(String userEmail) {
 
         var iterator = productRepository.findAll();
 
         var products = new ArrayList<Product>();
         for (Product p : iterator) {
-            if(p.getOwner()!=null && p.getOwner().equals(user)) products.add(p);
+            if(p.getOwner()!=null && p.getOwner().equals(userEmail)) products.add(p);
         }
 
         return products;

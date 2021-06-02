@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-public class ProductController {
+public class HtmlController {
 
     @Autowired
     private ProductService productService;
@@ -40,16 +40,16 @@ public class ProductController {
         return "hello";
     }
 
-    @GetMapping("/testpage")
-    public String testPage(Model model) {
-        model.addAttribute("name", "My Name");
-        return "testpage";
-    }
-
     @GetMapping("/createproduct")
     public String productForm(Model model) {
         model.addAttribute("product", new Product());
         return "productcreation";
+    }
+
+    @GetMapping("/dynamiccreation")
+    public String dynamicForm(Model model) {
+        model.addAttribute("product", new Product());
+        return "dynamiccreation";
     }
 
     @PostMapping("/createproduct")
