@@ -1,37 +1,35 @@
 const app = Vue.createApp({});
 app.component('dynamic-form', {
   template: `
-        <div class="row">
-            <input v-model="nameField" placeholder="Name">
-            <input v-model="priceField" placeholder="Price">
-            <p>{{ nameField }}</p>
-            <p>{{ priceField }}</p>
-        </div>
-        <div class="row">
-            <div class="col-6 text-end">
-                <button type="button" class="btn btn-danger .btn-lg" @click="save()">Save</button>
-            </div>
-        </div>
-        <div class="row">
-            <h2>Here are all products</h2>
-              <table>
-                <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Price</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr v-if="this.items === []">
-                  <td colspan="2">No Products Available</td>
-                </tr>
-                <tr v-for="product in items">
-                  <td>{{product.name}}</td>
-                  <td>{{product.price}}</td>
-                </tr>
-                </tbody>
-              </table>
-        </div>
+    <div>
+      <input v-model="nameField" placeholder="Name" ref="nameInput">
+      <input v-model="priceField" placeholder="Price" @keyup.enter="save()">
+      <button type="button" @click="save()">Save</button>
+    </div>
+    <div>
+      <h3>Here are all products:</h3>
+        <table>
+          <thead>
+          <tr>
+            <th>Name</th>
+            <th>Price</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr v-if="items.length === 0">
+            <td colspan="2">No products yet</td>
+          </tr>
+          <tr v-for="product in items">
+            <td>{{product.name}}</td>
+            <td>{{product.price}}</td>
+          </tr>
+          <tr>
+            <td>{{ nameField }}</td>
+            <td>{{ priceField }}</td>
+          </tr>
+          </tbody>
+        </table>
+    </div>
   `,
   data() {
     return {
@@ -48,8 +46,6 @@ app.component('dynamic-form', {
         }
       }).then((data) => {
         this.items = data;
-        //this.nameField = data[0].name + 1;
-        //this.priceField = data[0].price + 1;
       });
     },
     save() {
@@ -64,7 +60,10 @@ app.component('dynamic-form', {
         }),
       }).then((response) => {
         if (response.ok) {
-          return response.json();
+          this.nameField = '';
+          this.priceField = '';
+          this.$refs.nameInput.focus();
+          this.loadProducts();
         }
         else {
           throw new Error('Could not save product!');
