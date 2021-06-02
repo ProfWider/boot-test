@@ -2,17 +2,40 @@ const app = Vue.createApp({});
 app.component('dynamic-form', {
   template: `
         <div class="row">
-            <h3 class="text-center">{{ nameField }}</h3>
-            <h3 class="text-center">{{ priceField }}</h3>
+            <input v-model="nameField" placeholder="Name">
+            <input v-model="priceField" placeholder="Price">
+            <p>{{ nameField }}</p>
+            <p>{{ priceField }}</p>
         </div>
         <div class="row">
             <div class="col-6 text-end">
                 <button type="button" class="btn btn-danger .btn-lg" @click="save()">Save</button>
             </div>
         </div>
+        <div class="row">
+            <h2>Here are all products</h2>
+              <table>
+                <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Price</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-if="this.items === []">
+                  <td colspan="2">No Products Available</td>
+                </tr>
+                <tr v-for="product in items">
+                  <td>{{product.name}}</td>
+                  <td>{{product.price}}</td>
+                </tr>
+                </tbody>
+              </table>
+        </div>
   `,
   data() {
     return {
+      items: [],
       nameField: '',
       priceField: '',
     };
@@ -24,8 +47,9 @@ app.component('dynamic-form', {
           return response.json();
         }
       }).then((data) => {
-        this.nameField = data[0].name + 1;
-        this.priceField = data[0].price + 1;
+        this.items = data;
+        //this.nameField = data[0].name + 1;
+        //this.priceField = data[0].price + 1;
       });
     },
     save() {
