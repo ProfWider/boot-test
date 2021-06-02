@@ -40,37 +40,24 @@ app.component('dynamic-form', {
   },
   methods: {
     loadProducts() {
-      fetch('/products').then((response) => {
-        if (response.ok) {
-          return response.json();
-        }
-      }).then((data) => {
-        this.items = data;
-      });
+      axios
+        .get('/products')
+        .then(response => (this.items = response.data))
     },
     save() {
-      fetch('/products', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
+      axios
+        .post('/products', {
           name: this.nameField,
           price: this.priceField
-        }),
-      }).then((response) => {
-        if (response.ok) {
+        })
+        .then((response) => {
           this.nameField = '';
           this.priceField = '';
           this.$refs.nameInput.focus();
           this.loadProducts();
-        }
-        else {
-          throw new Error('Could not save product!');
-        }
-      }).catch((error) => {
-        console.log(error);
-      });
+        }, (error) => {
+          console.log('Could not save product!');
+        });
     },
   },
   mounted: function() {
