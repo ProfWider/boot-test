@@ -5,7 +5,7 @@ global.axios = require('axios');
 test('displays title', () => {
   const wrapper = mount(DynamicForm, {
     props: {
-      title: 'Here are all products:'
+      title: 'Here is nothing'
     }
   })
 
