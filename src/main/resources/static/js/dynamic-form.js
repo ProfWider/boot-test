@@ -1,5 +1,4 @@
-const app = Vue.createApp({});
-app.component('dynamic-form', {
+export default {
   template: `
     <div>
       <input v-model="nameField" placeholder="Name" ref="nameInput">
@@ -40,28 +39,40 @@ app.component('dynamic-form', {
   },
   methods: {
     loadProducts() {
-      axios
-        .get('/products')
-        .then(response => (this.items = response.data))
+      fetch('/products').then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+      }).then((data) => {
+        this.items = data;
+      });
     },
     save() {
-      axios
-        .post('/products', {
+      fetch('/products', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
           name: this.nameField,
           price: this.priceField
-        })
-        .then((response) => {
+        }),
+      }).then((response) => {
+        if (response.ok) {
           this.nameField = '';
           this.priceField = '';
           this.$refs.nameInput.focus();
           this.loadProducts();
-        }, (error) => {
-          console.log('Could not save product!');
-        });
+        }
+        else {
+          throw new Error('Could not save product!');
+        }
+      }).catch((error) => {
+        console.log(error);
+      });
     },
   },
   mounted: function() {
     this.loadProducts();
   }
-});
-app.mount('#dynamic-form');
+}
