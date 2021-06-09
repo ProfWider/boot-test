@@ -1,9 +1,13 @@
 import { mount } from '@vue/test-utils'
 import DynamicForm from './dynamic-form';
-global.fetch = require("node-fetch");
+global.axios = require('axios');
 
-test('shows empty message', () => {
-  const wrapper = mount(DynamicForm)
+test('displays title', () => {
+  const wrapper = mount(DynamicForm, {
+    props: {
+      title: 'Here are all products:'
+    }
+  })
 
-  expect(wrapper.text()).toContain('No products yet')
+  expect(wrapper.text()).toContain('Here are all products')
 })

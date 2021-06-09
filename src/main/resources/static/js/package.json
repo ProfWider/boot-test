@@ -33,7 +33,6 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.21.1",
-    "node-fetch": "^2.6.1",
     "vue": "^3.0.11"
   }
 }
