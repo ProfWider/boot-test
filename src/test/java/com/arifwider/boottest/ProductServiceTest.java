@@ -32,6 +32,6 @@ public class ProductServiceTest {
         List<Product> arifsProducts = service.findAll("arif@test.com");
 
         Assertions.assertSame(arifsProducts.size(), 1, "The number of products returned was wrong");
-        Assertions.assertSame(arifsProducts.get(0).getName(), "Lineal", "The wrong product was returned");
+        Assertions.assertSame(arifsProducts.get(0).getName(), "Stift", "The wrong product was returned");
     }
 }
