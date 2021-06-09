@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import DynamicForm from './dynamic-form';
+import DynamicForm from './dynamic-form.js';
 global.axios = require('axios');
 
 test('displays title', () => {
