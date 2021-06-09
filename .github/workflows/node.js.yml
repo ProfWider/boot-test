@@ -28,6 +28,6 @@ jobs:
     - name: Install Dependencies
       working-directory: ./src/main/resources/static/js
       run: npm ci
-    - name: Run Tests
+    - name: Run Frontend Tests
       working-directory: ./src/main/resources/static/js
       run: npm test
