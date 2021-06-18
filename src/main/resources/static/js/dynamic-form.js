@@ -2,7 +2,7 @@ export default {
   props: ['title'],
   template: `
     <div>
-      <input v-model="nameField" placeholder="Name" ref="nameInput">
+      <input v-model="nameField" placeholder="Name" type="text" ref="nameInput">
       <input v-model="priceField" placeholder="Price" @keyup.enter="save()">
       <button type="button" @click="save()">Save</button>
     </div>
